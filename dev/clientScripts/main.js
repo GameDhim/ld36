@@ -6,7 +6,7 @@ requirejs.config({
     jqueryui: 'lib/jquery-ui',
     'materialize': 'lib/materialize/dist/js/materialize',
     'hammerjs':    'lib/materialize/js/hammer.min',
-    'jquery-hammerjs':'lib/Materialize/js/jquery.hammer'        
+    'jquery-hammerjs':'lib/materialize/js/jquery.hammer'        
   },
   packages: [
 
