@@ -4,8 +4,8 @@ requirejs.config({
     requirejs: 'require',
     jquery: 'lib/jquery/dist/jquery',
     jqueryui: 'lib/jquery-ui',
-    'materialize': 'lib/Materialize/dist/js/materialize',
-    'hammerjs':    'lib/Materialize/js/hammer.min',
+    'materialize': 'lib/materialize/dist/js/materialize',
+    'hammerjs':    'lib/materialize/js/hammer.min',
     'jquery-hammerjs':'lib/Materialize/js/jquery.hammer'        
   },
   packages: [
