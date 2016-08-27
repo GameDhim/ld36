@@ -1,4 +1,5 @@
 requirejs.config({
+  baseUrl: './scripts',
   paths: {
     requirejs: 'require',
     jquery: 'lib/jquery/dist/jquery',
@@ -25,8 +26,25 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['jquery', 'materialize'], 
-    function ( ) {
+requirejs(['ui', 'audio',  'telegraph', 'jquery', 'materialize' ], 
+    function ( ui, audio, telegraph ) {
+
+      function init( ) {
+
+        ui.init() ; 
+        audio.init() 
+        telegraph.init( ui, audio )
+
+
+      }
+
+      $( function() { 
+        console.log( "init" )
+        init() ; 
+
+
+      } )
+
 
 
     }) ;
