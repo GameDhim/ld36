@@ -14,6 +14,12 @@ module.exports = function(grunt) {
                  , cwd: 'bower_components/Materialize/fonts/'
                  , src: ['**']
                  , dest: 'dist/fonts/'} ]
+      }
+    , materializeFont : 
+      { files: [ { expand: true
+                 , cwd: 'res/fonts/'
+                 , src: ['**']
+                 , dest: 'dist/fonts/'} ]
       }    
     , materializeSassFiles: 
       { files: [ { expand: true

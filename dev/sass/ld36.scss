@@ -1,4 +1,41 @@
+@import "components/color" ;
+
+//Define primary color and stuff
+$primary-color: color("brown", "darken-2") !default;
+$secondary-color: color("green", "darken-4") !default;
+$input-bg-color: $primary-color;
+@import "materialize" ;
+
+
+
+html {
+	font-family: 'Cutive Mono', monospace;
+
+//	font-family: 'Great Vibes', cursive;
+//	font-family: 'Homemade Apple', cursive;
+}
+//Force load fonts
+#hiddenElement1 {
+	display : hidden ; 
+	font-family: 'Homemade Apple', monospace;
+}
+#hiddenElement2 {
+	display : hidden ; 
+	font-family: 'Cutive Mono', cursive;
+}
+#hiddenElement3 {
+	display : hidden ; 
+	font-family: 'Great Vibes', cursive;
+}
+
 body {
-	color : red ;
+	background : $secondary-color ;
 	
+}
+
+
+canvas  {
+	width : 100% ;
+	height : 600px ;
+	font-family: 'Cutive Mono', 'HomemadeApple2', monospace;	
 }

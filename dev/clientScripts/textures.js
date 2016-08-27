@@ -1,8 +1,8 @@
-define( {
-	message : [
-		"img/textures/message0.png"
+define( 
+	{	message : [
+		"img/textures/message01.png"
 	]	
-	map : "img/textures/map.png"
+	, map : "img/textures/base-map.png"
 
 
 

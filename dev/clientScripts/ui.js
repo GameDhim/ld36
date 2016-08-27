@@ -4,8 +4,8 @@ define(
 		var ui = {} ;
 
 		ui.init = function() {
-
-
+			
+			
 		}
 		return ui ; 
 	})

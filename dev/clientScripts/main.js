@@ -26,15 +26,23 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['ui', 'audio',  'telegraph', 'jquery', 'materialize' ], 
-    function ( ui, audio, telegraph ) {
+requirejs(['graphic', 'audio',  'telegraph', 'jquery', 'materialize' ], 
+    function ( graphic, audio, telegraph ) {
 
       function init( ) {
 
-        //ui.init() ; 
+        graphic.initDone = waitForLoadingRessources 
+        graphic.init() ; 
         audio.init() 
-        telegraph.init( ui, audio )
+          
+        
+        
 
+      }
+
+
+      function waitForLoadingRessources( ) {
+        telegraph.init( graphic, audio )
 
       }
 
