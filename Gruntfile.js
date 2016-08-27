@@ -35,6 +35,14 @@ module.exports = function(grunt) {
                   , dest: ".grunt/sass"
                   } ]
       }
+    , img : 
+      { files : [ { expand: true 
+                  , cwd : "res/final" 
+                  , src : ["**"]
+                  , dest: "dist/img"
+                  } ]
+      }
+    
     , scripts : 
       { files : [ { expand: true 
                   , cwd : "dev/clientScripts" 
@@ -51,6 +59,10 @@ module.exports = function(grunt) {
     , js : {
       files:  ['dev/clientScripts/**']
       , tasks: ['copy:scripts']
+      }
+    , img : {
+      files:  ['res/final/**']
+      , tasks: ['copy:img']
       } 
     }  
   });

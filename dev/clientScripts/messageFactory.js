@@ -1,5 +1,8 @@
 define( [ "utils" ],
 	function( utils ) {
+		
+
+
 
 		function MESSAGE () {}
 		var originalMessage = Object.create( MESSAGE.prototype ,		Object.getOwnPropertyDescriptors(
@@ -10,11 +13,35 @@ define( [ "utils" ],
 			, morseCodeUsed : 0 		//int: 
 			}))
 
-		function createMessage( clearText ) {
 
-			var message = Object.create( originalMessage )
-			message.clearText = clearText  ; 
+		MESSAGE.prototype.render = function( x, y, size ) {
+
+
 		}
 
-		return createMessage ;
+		MESSAGE.prototype.createSprite = function( ) {
+			
+
+
+
+		}
+
+
+		//The main object		
+		var messageFactory = {} ;
+		//Factory function
+		messageFactory.createMessage = function( clearText ) {
+			var message = Object.create( originalMessage )
+			message.clearText = clearText  ; 
+			return message ; 
+		}
+		//Initialise the factory
+		//link audio and graphic
+		messageFactory.init = function ( audio, graphic ) {
+			
+			originalMessage.graphic = graphic 
+			originalMessage.audio = audio 
+
+		}
+		return messageFactory ;
 })

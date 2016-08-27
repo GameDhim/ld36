@@ -1,5 +1,5 @@
-define( ["message"],
-	function( createMessage ) {
+define( ["messageFactory"],
+	function( messageFactory ) {
 
 		var telegraph = {}
 
@@ -9,7 +9,7 @@ define( ["message"],
 			this.graphic = graphic ; 
 			this.audio = audio ; 
 
-			var m = createMessage()
+			var m = messageFactory.createMessage( "coucou")
 			this.play( m )
 		}
 
@@ -60,7 +60,7 @@ define( ["message"],
 			9:"----."
 		}
 
-
+		return telegraph 
 	})
 
 
