@@ -42,6 +42,13 @@ module.exports = function(grunt) {
                   , dest: "dist/img"
                   } ]
       }
+    , audio : 
+      { files : [ { expand: true 
+                  , cwd : "res/sounds" 
+                  , src : ["**"]
+                  , dest: "dist/sounds"
+                  } ]
+      }
     
     , scripts : 
       { files : [ { expand: true 

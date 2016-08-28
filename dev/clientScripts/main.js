@@ -26,8 +26,8 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['graphic', 'audio',  'telegraph', 'jquery', 'materialize' ], 
-    function ( graphic, audio, telegraph ) {
+requirejs(['graphic', 'audio',  'telegraph', 'book', 'jquery', 'materialize' ], 
+    function ( graphic, audio, telegraph, book  ) {
 
       function init( ) {
 
@@ -43,7 +43,8 @@ requirejs(['graphic', 'audio',  'telegraph', 'jquery', 'materialize' ],
 
       function waitForLoadingRessources( ) {
         telegraph.init( graphic, audio )
-
+        book.init( graphic, audio )
+        book.render( 350, 10 )
       }
 
       $( function() { 

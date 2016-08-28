@@ -9,15 +9,14 @@ define( ["messageFactory"],
 			this.graphic = graphic ; 
 			this.audio = audio ; 			
 			messageFactory.init( graphic, audio )
-			var m = messageFactory.createMessage( "coucou")
-			this.play( m )
+			
+			this.play(  )
 		}
 
 
 		//take a message a play the di da di daa corresponding
 		telegraph.play = function ( message ) {
-			setTimeout(function() { 
-				messageFactory.createMessage( "Lorem ipsum dolores").render(400,40, "big") 
+			setTimeout(function() { 				
 				messageFactory.createMessage( "sed Ediam con seguitur").render(30,30, "small") 
 				messageFactory.createMessage( "set etidam con papa ").render(50,90, "small") 
 				messageFactory.createMessage( "Hello world").render(40,150, "small") 

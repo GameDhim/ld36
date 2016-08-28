@@ -6,6 +6,7 @@ define(
 		{	screenRatio : 4/5
 		,	textures : {}
 		, loading : 0 	
+		, elements : []
 		}
 
 		) )
@@ -13,9 +14,23 @@ define(
 		graphics.init = function( ) {
 			this.initTextures() ; 
 			this.initContext() ;
+			this.elements.push( this )
+			this.canvas.addEventListener( "click", clickHandler.bind( this ) )
+
 			 
 			return this ; 
 		}
+		graphics.click = function( ) {
+			console.log( "click au fond de l'écran" ) ;
+		}
+
+		function clickHandler( e ) {
+				console.log( "click", e.layerX, e.layerY )
+				data = this.contextUI.getImageData( e.layerX, e.layerY, 1, 1).data ;
+				console.log( data )
+				if( this.elements[ data[0] ]) this.elements[data[0]].click( data[0], data[1], data[2], e)
+		}
+		
 
 		//load the textures 
 		graphics.initTextures = function() {
@@ -29,6 +44,10 @@ define(
 					}
 				}
 			}
+		}
+
+		graphics.rgb = function( r, g, b ) {
+			return "rgb("+r+","+g+","+b+")"
 		}
 
 		//create an image for the texture and async load id 
@@ -53,6 +72,10 @@ define(
 			this.canvas.height = this.canvas.scrollHeight;
 
 			//something something with ratio 
+			this.canvasUI = document.createElement("canvas");
+			this.contextUI = this.canvasUI.getContext("2d");						
+			this.canvasUI.width = this.canvas.scrollWidth;
+			this.canvasUI.height = this.canvas.scrollHeight;
 
 			return this.context ;
 		}
