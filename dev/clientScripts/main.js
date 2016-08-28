@@ -4,9 +4,9 @@ requirejs.config({
     requirejs: 'require',
     jquery: 'lib/jquery/dist/jquery',
     jqueryui: 'lib/jquery-ui',
-    'materialize': 'lib/Materialize/dist/js/materialize',
-    'hammerjs':    'lib/Materialize/js/hammer.min',
-    'jquery-hammerjs':'lib/Materialize/js/jquery.hammer'        
+    'materialize': 'lib/materialize/dist/js/materialize',
+    'hammerjs':    'lib/materialize/js/hammer.min',
+    'jquery-hammerjs':'lib/materialize/js/jquery.hammer'        
   },
   packages: [
 
@@ -26,15 +26,23 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['ui', 'audio',  'telegraph', 'jquery', 'materialize' ], 
-    function ( ui, audio, telegraph ) {
+requirejs(['graphic', 'audio',  'telegraph', 'jquery', 'materialize' ], 
+    function ( graphic, audio, telegraph ) {
 
       function init( ) {
 
-        //ui.init() ; 
+        graphic.initDone = waitForLoadingRessources 
+        graphic.init() ; 
         audio.init() 
-        telegraph.init( ui, audio )
+          
+        
+        
 
+      }
+
+
+      function waitForLoadingRessources( ) {
+        telegraph.init( graphic, audio )
 
       }
 
