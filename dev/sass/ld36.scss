@@ -15,26 +15,33 @@ html {
 }
 //Force load fonts
 #hiddenElement1 {
-	display : hidden ; 
+	display : none ; 
 	font-family: 'Homemade Apple', monospace;
 }
 #hiddenElement2 {
-	display : hidden ; 
+	display : none ; 
 	font-family: 'Cutive Mono', cursive;
 }
 #hiddenElement3 {
-	display : hidden ; 
+	display : none ; 
 	font-family: 'Great Vibes', cursive;
 }
 
 body {
-	background : $secondary-color ;
-	
+	background : #544c49 ;
+	width: 100%;
+	height:100%
 }
 
 
 canvas  {
-	width : 100% ;
-	height : 600px ;
-	font-family: 'Cutive Mono', 'HomemadeApple2', monospace;	
+	//width : 1200px ;
+	//height : 900px ;
+	font-family: 'Cutive Mono', 'Homemade Apple', monospace;	
+	background : url("/img/textures/ecranaccueuil.png");
+	margin:auto ;
+	display:block;
+	background-position : 50% 50% ;
+	background-repeat : no-repeat ;
+	background-size : cover ; 
 }
