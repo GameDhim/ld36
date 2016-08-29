@@ -10,21 +10,17 @@ define( ["messageFactory"],
 			this.audio = audio ; 			
 			messageFactory.init( graphic, audio )
 			
-			this.play(  )
+				messageFactory.createMessage( "sed Ediam con seguitur").setPosition(30,30, "small") 
+				messageFactory.createMessage( "set etidam con papa ").setPosition(50,90, "small") 
+				messageFactory.createMessage( "Hello world").setPosition(40,150, "small") 
+
 		}
 
-
+		telegraph.render = function() {
+			messageFactory.render() 
+		}
 		//take a message a play the di da di daa corresponding
 		telegraph.play = function ( message ) {
-			setTimeout(function() { 				
-				messageFactory.createMessage( "sed Ediam con seguitur").render(30,30, "small") 
-				messageFactory.createMessage( "set etidam con papa ").render(50,90, "small") 
-				messageFactory.createMessage( "Hello world").render(40,150, "small") 
-
-
-
-
-			}, 1000);
 			
 		}
 

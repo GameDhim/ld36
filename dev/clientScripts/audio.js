@@ -3,7 +3,7 @@ define(
 	function() {
 		var audio = new AudioContext() ; 
 
-		AudioContext.prototype.createAudioBus = function() {
+		AudioContext.prototype.createAudioBus = function( callback ) {
 			audioContext = this ; //aliasing for clarity	
 
 			var node = audioContext.createGain() ; 
@@ -29,8 +29,10 @@ define(
 				, { label : "church", url:"sounds/ir/church.wav"}
 				, { label : "phone", url:"sounds/ir/telephone.wav"} 
 				]
-				, function() { node.changeImpulseResponse( bf.bufferList.church ) ;})
+				, callback )
 			
+		
+
 			node.changeImpulseResponse = function( impulseResponse ) {
 				if( typeof impulseResponse == "string" &&  bf.bufferList.hasOwnProperty( impulseResponse )) {
 					this.wet.buffer = bf.bufferList[ impulseResponse ]
@@ -46,9 +48,14 @@ define(
 			return node ;
 		}
 
+
+		bufferLoaded = function( ) {
+				this.bus.changeImpulseResponse( "radio" ) ;
+				this.onInit( "audio", this ) ;
+		}
 		//initialize audio stuff
 		audio.init = function( ) {
-			audio.bus = audio.createAudioBus()
+			audio.bus = audio.createAudioBus( bufferLoaded.bind( this ))
 		}
 
 
