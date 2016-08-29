@@ -31,7 +31,7 @@ define(
 					
 					if( this.freeTime[i] < arguments[1] ) {
 						this.freeTime[i] = this.generators[i].play.apply( this.generators[i], arguments ) ;
-						//console.log( "instrument " + i )
+						console.log( "instrument " + i )
 						return this.freeTime[i]
 					} 
 					if( this.freeTime[i] < this.freeTime[min] ) min = i 

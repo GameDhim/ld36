@@ -280,7 +280,7 @@ define( [ "code", "utils"],
 		}
 
 		book.drag = function( indexPage, state, dx, dy ) {
-			console.log( indexPage, state, dx, dy  )
+		
 			if( indexPage == 0 ) {
 				if( state == "continue") {				
 					this.x += dx 

@@ -26,8 +26,8 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['graphic', 'audio',  'telegraph', 'book', 'jquery', 'materialize' ], 
-    function ( graphic, audio, telegraph, book  ) {
+requirejs(['graphic', 'audio',  'telegraph', 'book', "messageFactory", 'jquery', 'materialize' ], 
+    function ( graphic, audio, telegraph, book, messageFactory  ) {
       game = {
         state : "loading"
       ,  elements : [] 
@@ -37,6 +37,7 @@ requirejs(['graphic', 'audio',  'telegraph', 'book', 'jquery', 'materialize' ],
         for (var i = 0; i < this.elements.length; i++) {
           this.elements[i].render() 
         }
+
       }
 
       function init( ) {
@@ -55,20 +56,37 @@ requirejs(['graphic', 'audio',  'telegraph', 'book', 'jquery', 'materialize' ],
         console.log( ressource +" has loaded ")
         if( game.hasOwnProperty( "graphic") && game.hasOwnProperty( "audio") ) {
           console.log( "Everything is loaded")
+           
           book.init( graphic, audio )
           book.position( 350, 10 ) 
           game.elements.push( book )
 
 
+          messageFactory.init( graphic, audio )
+          game.elements.push( messageFactory )
+
           telegraph.init( graphic, audio )
           game.elements.push( telegraph )
 
           setTimeout(function() {
-            game.render() ;            
+            graphic.canvas.setAttribute( "style", "background-image : url(/img/textures/fond.png)" )
+
+            messageFactory.createMessage( "sed Ediam con seguitur").setPosition(30,30, "small") 
+            messageFactory.createMessage( "set etidam con papa ").setPosition(50,90, "small") 
+            messageFactory.createMessage( "Hello world").setPosition(40,150, "small") 
+
+            periodicRefresh( )         
           }, 100);
           
         }
 
+        var timer = 0 
+        function periodicRefresh( ) {          
+          if( timer++ % 10 == 0 ) {
+            graphic.refresh () 
+          }
+          window.requestAnimationFrame(periodicRefresh);
+        }
 
         // telegraph.init( graphic, audio )
         // book.init( graphic, audio )

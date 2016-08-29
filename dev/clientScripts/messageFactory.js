@@ -38,7 +38,7 @@ define( [ "utils" ],
 			
 
 			this.graphic.context.save()
-				this.graphic.context.rotate( sprite.angle ) ;
+				this.graphic.context.rotate( sprite.angle ) ;			
 				this.graphic.context.drawImage( sprite.buffer.canvas
 									 										, sprite[ size ].coordinates.x
 																			, sprite[ size ].coordinates.y
@@ -198,15 +198,15 @@ define( [ "utils" ],
 		messageFactory.drag = function(r,g,b, state, dx, dy  ) {
 			var index = g/50-1 
 				, message = this.messages[ index ] 
-			console.log( r,g,b, state )
+			
 
 			if( message !== undefined) {														
 				if( state == "start") {
-					console.log( this.order, index  )
+					
 
 					var ind = this.order.splice( this.order.indexOf( index) , 1 )
 					this.order.unshift( ind[0] )
-					console.log( this.order )
+					
 					message.graphic.refresh()
 				}
 				if( state == "continue") {				
