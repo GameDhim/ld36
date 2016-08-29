@@ -29,7 +29,7 @@ define( [ "utils" ],
 			this.position.y = y 
 
 			if( size !== undefined ) this.position.size = size 
-				
+			return this
 		}
 
 		MESSAGE.prototype.render = function(  ) {			
@@ -156,13 +156,18 @@ define( [ "utils" ],
 		, order : [] 
 		} ;
 		//Factory function
-		messageFactory.createMessage = function( clearText ) {
+
+
+		messageFactory.createMessage = function( clearText, morseText ) {
 			var message = Object.create( originalMessage )
 			this.messages.push( message )
-			this.order.push( 	this.messages.length -1  )
+			this.order.unshift( 	this.messages.length -1  )
 
-			message.clearText = clearText  ; 
-			message.uiColor = {r : originalMessage.uiColor.r, g : 50*this.messages.length , b : 0 }
+			message.clearText = clearText ; 
+			message.morseText = morseText ;
+
+
+			message.uiColor = {r : originalMessage.uiColor.r, g : this.messages.length , b : 0 }
 
 			message.createSprite( "message0" , 600)
 
@@ -188,7 +193,7 @@ define( [ "utils" ],
 		}
 		messageFactory.click = function( r, g, b, event ) {
 			
-			message = this.messages[ g/50-1 ] 
+			message = this.messages[ g-1 ] 
 			if( message !== undefined) {
 				message.position.size =  ( message.position.size == "big")  ? "small" : "big" ;
 				message.graphic.refresh()
@@ -196,7 +201,7 @@ define( [ "utils" ],
 
 		}
 		messageFactory.drag = function(r,g,b, state, dx, dy  ) {
-			var index = g/50-1 
+			var index = g-1 
 				, message = this.messages[ index ] 
 			
 

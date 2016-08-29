@@ -52,7 +52,7 @@ define(
 		
 		
 		function mouseDown( e ) {
-			console.log("mouseDown")
+			
 			var data = this.contextUI.getImageData( e.layerX, e.layerY, 1, 1).data 				
 				, initDrag = false 
 				, element = this.elements[ data[0] ]
@@ -68,18 +68,16 @@ define(
 					} 
 			}
 		}
-		function drag( e ) {
-			console.log( "drag")
-			
+		function drag( e ) {						
 			if( this.dragOn ) {
 					var data = this.contextUI.getImageData( e.layerX, e.layerY, 1, 1).data 		
 				, element = this.elements[ data[0] ]
-				if( element != this.dragElement ) {
-					this.dragOn = false 
-					return element.drag( data[0], data[1], data[2], "end", e.layerX, e.layerY )
-				} 
+				// if( element != this.dragElement ) {
+				// 	this.dragOn = false 
+				// 	return this.dragElement .drag( data[0], data[1], data[2], "end", e.layerX, e.layerY )
+				// } 
 
-				element.drag( data[0], data[1], data[2], "continue", e.layerX - this.dragLastPosition.x, e.layerY  - this.dragLastPosition.y )
+				this.dragElement.drag( data[0], data[1], data[2], "continue", e.layerX - this.dragLastPosition.x, e.layerY  - this.dragLastPosition.y )
 				this.dragLastPosition = 
 					{ x:e.layerX
 					, y: e.layerY 
@@ -92,7 +90,7 @@ define(
 					var data = this.contextUI.getImageData( e.layerX, e.layerY, 1, 1).data 		
 				, element = this.elements[ data[0] ]
 
-				element.drag( data[0], data[1], data[2], "end", e.layerX, e.layerY )
+				this.dragElement.drag( data[0], data[1], data[2], "end", e.layerX, e.layerY )
 				this.dragLastPosition = 
 					{ x:e.layerX
 					, y: e.layerY 

@@ -1,10 +1,10 @@
-define( ["messageFactory"],
-	function( messageFactory ) {
+define( [ "code"],
+	function(code ) {
 
 		var telegraph = {
-			position : { x : 0, y : 0 }
+			position : { x : 0, y : 350 }
 		,	state : "up"
-
+		, string : "" 
 		}
 
 
@@ -46,83 +46,91 @@ define( ["messageFactory"],
 		}
 
 		telegraph.click = function( r, g, b ) {
-			if( this.previous == "click") {
+			if( this.audio.currentTime - this.start < 0.150 ) {
+				//press was too short 
 				this.state = "down"
-				this.graphic.refresh() ;
-				//If press is so short fake a press
-				//this.audio.shortBip() 
+				this.graphic.refresh() ;				
 				setTimeout(function() {
-					console.log( "fake")
+					
 					this.state = "up"
 					this.graphic.refresh() ;
+					this.audio.stopBip() 
 				}.bind( this ) , 100);
 			}
-			this.previous = "click"
-			
-			
+			this.previous = "click"						
 		}
 		telegraph.drag =function( r,g,b, state, dx, dy) {
-			if( g == 255 ) {
+			//IF CLICK ON THE BUTTON
+			if( g == 255 ) {				
 				this.state = ( state =="end") ? "up" : "down"
 				this.graphic.refresh() ;
 
-				if( state == "continue") {
-					this.previous = "longPress"
-				} else if( state == "start") {
+				if( state == "start") {
 					this.audio.startBip()
-					this.start = this.audio.currentTime 
+					this.start = this.audio.currentTime 		
+					
+					//if ( (this.start - this.end ) > .700 ) this.string += " "
+					if ((this.start - this.end) > 3.000 ) {
+						this.string = ""
+					}
 				} else if( state == "end" ){
 					this.audio.stopBip()
+					this.string += ( this.audio.currentTime - this.start < 0.150 ) ? "." : "-"
+					
+					this.end = this.audio.currentTime 
 				}
-				return true 
+			//DRAG
 			} else {
 				if( state == "continue"){
 					this.position.x += dx ;
 					this.position.y += dy ;
 				}
-				return true
+			
+			}
+			return true 
+		}
+
+		telegraph.code =function( clearText ) {
+			var morse = "" 
+			text = clearText.toLowerCase()
+			for( var i in clearText ) {
+				if( text[i] == " ") continue ;
+				morse+= code[ text[ i ]]
+			}
+			return morse
+		}
+		telegraph.code2 =function( clearText ) {
+			var morse = "" 
+			text = clearText.toLowerCase()
+			for( var i in clearText ) {
+				if( text[i] == " ") {
+					morse+= " " ;
+					continue 
+				}
+				morse+= code[ text[ i ]]
+			}
+			return morse
+		}
+
+		telegraph.play = function( morseString ) {
+			baseT = this.audio.currentTime ; 
+			
+			var length = 100 ;
+			for( var i in morseString ) {
+
+				switch( morseString[ i ]) {
+					case "." : length = 100 * Math.random2( 1, 0.04) ; break ;
+					case "-" : length = 600 * Math.random2( 1, 0.04) ; break ; 
+					case " " : length = 550 * Math.random2( 1, 0.04) ; break ;
+				}
+				
+				if( morseString[i] != " " ) this.audio.play( baseT, length/1000 )
+				baseT += (length + 200)/1000
 			}
 
 		}
 
-		var code = {
-			a:".-" ,
-			b:"-...",
-			c:"-.-.",
-			d:"-..",
-			e:".",
-			f:"..-.",
-			g:"--.",
-			h:"....",
-			i:"..",
-			j:".---",
-			k:"-.-",
-			l:".-..",
-			m:"--",
-			n:"-.",
-			o:"---",
-			p:".--.",
-			q:"--.-",
-			r:".-.",
-			s:"...",
-			t:"-",
-			u:"..-",
-			v:"...-",
-			w:".--",
-			x:"-..-",
-			y:"-.--",
-			z:"--.",
-			0:"-----",
-			1:".----",
-			2:"..---",
-			3:"...--",
-			4:"....-",
-			5:".....",
-			6:"-....",
-			7:"--...",
-			8:"---..",
-			9:"----."
-		}
+
 
 		return telegraph 
 	})

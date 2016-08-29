@@ -1,5 +1,5 @@
 define( 
-	["audio/bufferLoader", "audio/instrument"],
+	["audio/bufferLoader", "audio/instrument", "audio/music"],
 	function() {
 		var audio = new AudioContext() ; 
 
@@ -21,9 +21,9 @@ define(
 			node.compressor.attack.value = 0;
 			node.compressor.release.value = 0.25;
 
-			node.gain.value = 0.4 
-			node.dry.gain.value = 0.3
-			
+			node.gain.value = 0.6 
+			node.dry.gain.value = 0.1
+
 
 			bf = audioContext.createBufferLoader(
 				[ { label : "radio", url:"sounds/ir/radio.wav"}
@@ -51,7 +51,7 @@ define(
 
 
 		bufferLoaded = function( ) {
-				this.bus.changeImpulseResponse( "phone" ) ;
+				this.bus.changeImpulseResponse( "radio" ) ;
 				this.onInit( "audio", this ) ;
 		}
 		//initialize audio stuff
@@ -76,29 +76,42 @@ define(
 			audio.gainBip.gain.value = 0 ; 
 			audio.gainBip.connect( audio.bus )			
 
+			music.init( audio, audio.bus )
+
+			music.scheduleNextMesure(0, audio.currentTime + 0.2) 
 		}
 
 
 		audio.startBip= function( ) {
-			console.log( "start bip")
+			
 			audio.gainBip.gain.value = 1 
 			audio.gainBip.startTime = audio.currentTime 
-			audio.gainBip.gain.linearRampToValueAtTime( 0.5, audio.currentTime + 0.03 )
-		}
-		audio.longBip= function( ) {
-			audio.clarinette.play( 2000,  audio.currentTime , 0.300, "a" )
-		}
+			
+			audio.gainBip.gain.setValueAtTime( 0, audio.currentTime + 0.001)
+			audio.gainBip.gain.linearRampToValueAtTime( 0.3, audio.currentTime + 0.01)
+		}	
 		audio.stopBip = function() {
-			console.log( "stop bip")
+			
 			if( audio.currentTime - audio.gainBip.startTime  < 0.1 ) {
 				audio.gainBip.gain.linearRampToValueAtTime( 0.1, audio.gainBip.startTime+ 0.08 )
 				audio.gainBip.gain.linearRampToValueAtTime( 0, audio.gainBip.startTime+ 0.1 )
-				
+				audio.gainBip.gain.setValueAtTime( 0.3, audio.currentTime +0.1-0.01 )
+				audio.gainBip.gain.linearRampToValueAtTime( 0, audio.currentTime +0.1)
 			}
 			else {
-				audio.gainBip.gain.linearRampToValueAtTime( 0.1, audio.currentTime + 0.02 )
-				audio.gainBip.gain.linearRampToValueAtTime( 0, audio.currentTime+ 0.03 )
+				audio.gainBip.gain.setValueAtTime( 0.3, audio.currentTime )
+				audio.gainBip.gain.linearRampToValueAtTime( 0, audio.currentTime +0.01 )
 			}
 		}
+
+
+		audio.play = function( t, l ) {
+			audio.gainBip.gain.setValueAtTime( 0, t + 0.001)
+			audio.gainBip.gain.linearRampToValueAtTime( 0.3, t + 0.01)
+			audio.gainBip.gain.setValueAtTime( 0.3, t+l-0.01 )
+			audio.gainBip.gain.linearRampToValueAtTime( 0, t + l)
+		}
+
+
 		return audio ; 
 })

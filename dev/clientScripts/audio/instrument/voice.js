@@ -1,6 +1,6 @@
 define( ['audio/instrument/formantFrequency',  "audio/sourceNode/noise", "utils", 'audio/sourceNode/pulseOscillator', 'audio/adsr', 'audio/bufferLoader'],
 	function( frequency ) {
-	console.log( "voice.js ")
+	console.log( "voice.js ", frequency)
 
 
 	audioContext = new AudioContext() ;
@@ -12,7 +12,7 @@ define( ['audio/instrument/formantFrequency',  "audio/sourceNode/noise", "utils"
 	bf.load() ;
 
 	
-    AudioContext.prototype.createVoice = function( scope ) {
+    AudioContext.prototype.createVoice = function( scope, range ) {
 
 
 		
@@ -24,7 +24,7 @@ define( ['audio/instrument/formantFrequency',  "audio/sourceNode/noise", "utils"
 		
 
     	node.letter = "a"
-    	node._range = "soprano"
+    	node._range = range || "soprano"
 		node.biquadFilterF = [] 
 
 		
@@ -86,7 +86,8 @@ define( ['audio/instrument/formantFrequency',  "audio/sourceNode/noise", "utils"
 		node.setFormant = function( range, letter, time ) {
 			this.letter = letter 
 			this._range = range 
-			
+			time += Math.random()*0.2
+
 			for( i = 0 ; i < 5 ; i++ ) {		
 				this.biquadFilterF[i].frequency.setValueAtTime( frequency[ this._range ][ this.letter ].freq[i], time );
 				this.biquadFilterF[i].Q.setValueAtTime( frequency[ this._range ][ this.letter ].freq[i] / frequency[ this._range ][ this.letter ].bw[i] , time );
@@ -94,7 +95,7 @@ define( ['audio/instrument/formantFrequency',  "audio/sourceNode/noise", "utils"
 			}	
 		}
 
-		node.setFormant( "countertenor", "o", audioContext.currentTime )
+		node.setFormant( node._range, "o", audioContext.currentTime )
 		
 		audioContext.attach( node , node.biquadFilterF, node.adsrNode, node.output ) ; 
 		
@@ -110,7 +111,7 @@ define( ['audio/instrument/formantFrequency',  "audio/sourceNode/noise", "utils"
 	    
 			
 			this.setFormant( this._range, letter, time)
-			this.detune.setValueAtTime( tune, time)
+			this.detune.setValueAtTime( tune * Math.random2(1,0.05) , time )
 			this.adsrNode.play( time, length)
 
 			return time + length 
